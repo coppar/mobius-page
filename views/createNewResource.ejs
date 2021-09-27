@@ -1,0 +1,228 @@
+<link rel="stylesheet" href="/css/createNewResource.css">
+
+
+
+<body onclick="checkeverytime()">    
+    <div class="sidenav" hidden>
+        <h1 id="userNameHere" class="ml-4">
+            <%= name %>
+        </h1>
+        <a href="/home" class="ml-2">Modules</a>
+        <!-- <button type="button" onclick="displayNotesRearrangeOverlay()" class="btn btn-primary ml-2 mb-2">Rearrange Notes</button> -->
+        <button type="button" onclick="displaySubmitFormOverlay()" class="btn btn-success ml-4">Save</button>
+        <a href="/users/logout" class="btn btn-secondary mt-2">Logout</a>
+    </div>
+    <br />
+    <br />
+
+    <div class="backBtn">
+        <form action="/experience" method="GET">
+            <button type="submit" class="btn btn-primary" style="float: right;">Back</button>
+        </form>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <!-- <button type="button" class="btn btn-success">Save</button> -->
+
+    </div>
+
+    <form action="/experience/createNewResource" method="POST">
+        <div style="border: 1px solid transparent;">
+            <h1 class="ml-5">New Resource</h1>
+            <br />
+            <br />
+            <h4 class="ml-5">Title of resource: <input name="titleOfResourceTb" id="titleOfResourceTb" placeholder="Enter title of resource" class="form-control" style="width: -webkit-fill-available;"></h4>
+            <h4 class="ml-5">Category of resource: <input name="categoryOfResourceTb" id="categoryOfResourceTb" placeholder="Enter category of resource" class="form-control" style="width: -webkit-fill-available;"></h4>
+            <div class="backBtn">
+                <button type="button" onclick="displaySubmitFormOverlay()" class="btn btn-success">Save</button>
+                <button type="submit" id="saveResourceBtn" class="btn btn-success" hidden>Save</button>
+
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+
+        <!-- ErrorMessage for editlessonplan.ejs Page -->
+        <div id="alertErrors">
+        </div>
+
+        <div class="backBtn">
+            <br />
+            <br />
+            <button type="button" class="btn btn-primary" id="pasteBtn">Paste</button>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <h1 style="text-align:center">LXD Notes</h1>
+        <div class="flex-container" id="flexContainerId">
+            <% for (var i=0; i < cards.length; i++) { %>
+                <div class="parent" style="background-color: <%= cards[i].backgroundColor %>;" id=<%= cards[i].divId %>>
+                    <input name="headerForNotesName" placeholder="Title..." id="<%= cards[i].inputHeaderId %>" class="headersNotes" value="<%= cards[i].inputHeaderValue %>">
+
+                    <input title="Use this button to change the color of the note" type="color" id="<%= cards[i].colorId %>" name="colorPickerForNote" value=<%= cards[i].backgroundColor %>>
+                    <button title="Use this button to delete this note" type="button" name="goRemoveNotes" id="<%= cards[i].buttonId %>"><i
+                            class="fas fa-times"></i></button><br>
+
+                    <button type="button" class="btn btn-info" name="moveUpBtn"><i class="fa fa-arrow-up"
+                            aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-info" name="moveDownBtn"><i class="fa fa-arrow-down"
+                            aria-hidden="true"></i></button>
+
+                    <textarea class="notesTextArea" id="<%= cards[i].textAreaId %>" name="goTextArea"></textarea>
+                    <label id="<%= cards[i].labelId %>" style="font-size: large;">Last Modified by:</label>
+                    <!-- <label id="lastModifiedBy1" class="labelForLastModifiedBy"></label> -->
+                    <!-- <input readonly id="lastModifiedBy1" class="labelForLastModifiedBy" name="labelForLastModifiedBy"> -->
+                </div>
+                <% } %>
+
+        </div>
+        <button type="button" class="btn btn-success" id="addNewNoteBtn">Add New Note</button>
+        <br>
+        <br>
+        <br>
+        <h1 style="text-align:center">LXD Timeline</h1>
+        <!-- Vertical Timeline -->
+        <section id="conference-timeline">
+            <div class="timeline-start">
+                <label>Start Time:</label>
+                <br />
+                <input name="startTimeInput" id="startTimeInput" type="text" value="00:00" readonly />
+            </div>
+            <div class="conference-center-line"></div>
+            <div class="conference-timeline-content" id="containerBox">
+                <div class="timeline-article">
+                    <div class="content-left-container">
+                        <div class="content-left" style="background-color: #8080ff">
+                            <input name='headerForEventName' placeholder="Title..." class="headerForEvent" value="">
+                            <textarea contenteditable="true" style="height: 400px" name="textAreasForEvents"></textarea>
+                            <input title="Use this button to change the color of the note" type='color' name="colorPickerForEvent" value="#8080ff" />
+                            <label style="font-size: small;">Last Modified By:</label>
+                            <input readonly class="labelSetForLastModified" name="labelSetForLastModified" value="">
+                        </div>
+
+                        <label>Duration:</label><br />
+                        <input type="number" name="goDuration" style="width: 50px" min="0" max="23" value=0 />&nbsp<label>hour(s)</label>&nbsp<input type="number" name="goMinutes" style="width: 50px" min="0" max="59" value=0 />&nbsp<label>minute(s)</label>&nbsp
+                        <button title="Use this button to delete that specific event (This event cannot be deleted as the timeline needs to have at least 1 event)" type="button" name="goRemoveEvents" class="btn clever-btn btn-2" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash"
+                                style="font-size: 18px; color: black;"></i></button>
+                        <br />
+                        <label hidden>Start Time:</label>
+                        <br />
+                        <input name="goTime" type="time" hidden />
+                    </div>
+                    <div class="content-right-container">
+                        <div class="content-right" style="background-color: #80ff00">
+                            <!-- <h4 contenteditable="true" id="uniqueheaderForEvent2" class="headerForEvent"
+                                    data-placeholder="Title..."></h4> -->
+                            <input name='headerForEventName' placeholder="Title..." class="headerForEvent" value="">
+                            <textarea style="height: 400px" name="textAreasForEvents"></textarea>
+
+                            <input title="Use this button to change the color of the note" type='color' name="colorPickerForEvent" value="#80ff00" />
+                            <label style="font-size: small;">Last Modified By:</label>
+                            <input readonly class="labelSetForLastModified" name="labelSetForLastModified" value="">
+                        </div>
+                    </div>
+                    <div class="meta-date">
+                        <span class="date">00:00</span>
+                        <input name="middleTimeHidden" value="00:00" hidden />
+                    </div>
+
+                    <button type="button" class="btn btn-info" name="moveUpBtnTL" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px; margin-top: 150px;"><i
+                            class="fa fa-arrow-up" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-info" name="moveDownBtnTL" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px;"><i
+                            class="fa fa-arrow-down" aria-hidden="true"></i></button>
+
+
+                    <input title="Use this button to add an event" type="button" value="+" class="btn clever-btn btn-2" name="goButton" style="display: block; margin:auto; max-width: 300px; margin-top: 110px; background: #00b0bd; color: rgba(0, 0, 0, 0.50); font-size: xx-large;"
+                    />
+
+                </div>
+            </div>
+            <div class="timeline-end">Total Duration
+                <input class="endTime" type="text" readonly style="cursor: not-allowed;" />
+            </div>
+        </section>
+        <!-- // Vertical Timeline -->
+
+        <!-- For Overlays -->
+        <div id="overlayForNotes">
+            <div class="text">Loading......</div>
+            <div class="loader"></div>
+        </div>
+
+        <div id="overlay">
+            <div class="text">Loading......</div>
+            <div class="loader"></div>
+        </div>
+
+        <!-- For Overlay For Form Submission -->
+        <!-- <div id="overlayForFormSubmission">
+            <div class="text">
+                <div class="form-group">
+                    <label for="nameOfLessonPlan">Name of Lesson Plan</label>
+                    <input required type="text" id="nameOfLessonPlan" name="nameOfLessonPlan" class="form-control"
+                        placeholder="Enter name of lesson plan"
+                        value="<%= typeof nameOfLessonPlan != 'undefined' ? nameOfLessonPlan : '' %>">
+                </div>
+                <div class="form-group">
+                    <label for="commitMsg">Commit Message</label>
+                    <input required type="text" id="commitMsg" name="commitMsg" class="form-control"
+                        placeholder="Enter commit messages"
+                        value="<%= typeof commitMsg != 'undefined' ? commitMsg : '' %>">
+                </div>
+            </div>
+            <button type="submit" id="submitFormSuccess" class="btn btn-default" onclick="submitForm()">Save</button>
+            <button type="button" id="submitFormFail" class="btn btn-default"
+                onclick="makeSubmitFormOverlayGone()">Cancel</button>
+        <input type="button" id="submitFormFail" class="btn btn-default" onclick="makeSubmitFormOverlayGone()" value="Cancel">
+        </div> -->
+
+        <!-- For Overlay For Rearrange Notes
+        <div id="overlayForSortingNotes">
+
+            <ul id="sortable">
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+              </ul>
+        </div> -->
+    </form>
+
+    <!-- Modal -->
+    <div id="ModalPopUpForDeletion">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-bodyID">
+                        <!-- delete msg here -->
+                    </div>
+                    <div class="modal-footer" id="modalfooter" name="modalfooter">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" name="ConfirmDeleteBtnInModal" id="ConfirmDeleteBtnInModal" class="btn btn-danger mt-2"> Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="https://cdn.tiny.cloud/1/s10q09jxylitz9oiyw1l72vaooxgiiygcnpr4kwryw6uemns/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/scripts/createNewResource.js"></script>

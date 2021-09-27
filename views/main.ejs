@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="css/main.css">
+
+
+<body>
+    <!-- <div class="sidenav">
+        <h1 class="ml-4"><%= name %></h1>
+        <a href="/users/logout" class="btn btn-secondary">Logout</a>
+    </div> -->
+    <h1 class="mt-4">Experience
+        <h3>Lesson Plans</h3>
+        <div class="backBtn">
+                <a href="/exLandingPage" class="btn btn-primary">Back</a>
+        </div>
+        </h1>
+    <br/>
+    <br/>
+    <br/>
+        <nav class="nav nav-pills flex-column flex-sm-row w3-light-grey">
+            <a class="flex-sm-fill text-sm-center nav-link" href="/experience">Repository</a>
+            <a class="flex-sm-fill text-sm-center nav-link active" href="/home">Lesson Plans</a>
+        </nav>
+    <br/>
+    <h1 class="mt-4">Modules</h1>
+    <div>
+        <form action="/home" method="GET">
+            <div class="form-group">
+                <input type="text" name="search" placeholder="Search for modules..." class="form-control">
+                <button type="submit" class="btn btn-primary mt-2">Search</button>
+            </div>
+        </form>
+    </div>
+    <%- include('./partials/messages.ejs'); %>
+
+    <a href="/home/new-module" class="btn btn-success mt-4">New Module</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">Module Code</th>
+                <th scope="col">Module Name</th>
+                <th scope="col">Module School</th>
+                <th scope="col">Date Created</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%if (records.length >0){ %>
+            <% records.forEach(function(row){ %>
+            <tr>
+                <td><%= row.moduleCode %></td>
+                <td><%= row.moduleName %></td>
+                <td><%= row.moduleSchool %></td>
+                <td><%= row.date.toLocaleDateString() %></td>
+                <td><a href="/home/<%= row._id %>" class="btn btn-primary"> Find Lesson Plans</a>
+                    <a href="/home/<%= row._id %>/edit" class="btn btn-info btn-xs"><i class="fas fa-edit"></i> Edit</a>
+                    <% if (admin) { %>
+                    <a href="/home/<%= row._id %>/delete" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this record ?');"><i class="fas fa-trash-alt"></i> Delete</a>
+                    <% } %>
+                </td>
+            </tr>
+            <% })} else { %>
+            <tr>
+                <td colspan="6">No record found</td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    
+</body>

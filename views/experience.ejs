@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="css/experience.css">
+
+<body onclick="checkeverytime()">
+    <h1 class="mt-4">Experience
+        <h3>Resource</h3>
+        <div class="backBtn">
+            <a href="/exLandingPage" class="btn btn-primary">Back</a>
+    </h1>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <nav class="nav nav-pills flex-column flex-sm-row w3-light-grey">
+        <a class="flex-sm-fill text-sm-center nav-link active" href="/experience">Repository</a>
+        <a class="flex-sm-fill text-sm-center nav-link" href="/home">Lesson Plans</a>
+    </nav>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th class="searchbytable">Search by:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="searchbytable">Title: </td>
+                <td>&nbsp;<input value="" placeholder="Enter Title" class="searchinputtable" onkeyup="searchFunction()" id="titleSearchInput"></td>
+                <form action="/experience/createNewResource" method="GET">
+                    <td rowspan="3"><button class="btn btn-primary createNewButton">Create New Resource</button></td>
+                </form>
+            </tr>
+            <tr>
+                <td class="searchbytable">Category: </td>
+                <td>&nbsp;<input value="" placeholder="Enter Category" class="searchinputtable" onkeyup="searchFunction()" id="categorySearchInput"></td>
+            </tr>
+            <tr>
+                <td class="searchbytable">Author: </td>
+                <td>&nbsp;<input value="" placeholder="Enter Author" class="searchinputtable" onkeyup="searchFunction()" id="authorSearchInput"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <br/>
+    <%- include('./partials/messages.ejs'); %>
+
+        <h3 class="mt-4">Resource</h3>
+        <table class="table table-striped table-responsive" name="tableForLinks" id="LessonPlanTable">
+            <thead>
+                <tr>
+                    <th scope="col" onclick="sortTable(0)">Title <i class="fa fa-fw fa-sort"></i></th>
+                    <th scope="col" onclick="sortTable(1)">Category <i class="fa fa-fw fa-sort"></i></th>
+                    <th scope="col" onclick="sortTable(2)">Date Created <i class="fa fa-fw fa-sort"></i></th>
+                    <th scope="col" onclick="sortTable(3)">Time Created <i class="fa fa-fw fa-sort"></i></th>
+                    <th scope="col" onclick="sortTable(4)">Author <i class="fa fa-fw fa-sort"></i></th>
+                    <th scope="col" onclick="sortTable(5)">Author's Email <i class="fa fa-fw fa-sort"></i></th>
+                    <th scope="col" onclick="sortTable(6)">Last Modified <i class="fa fa-fw fa-sort"></i></th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(TheResources != null){ %>
+                    <% for (var i = 0; i < TheResources.length; i++) { %>
+                        <tr>
+                            <td>
+                                <%= TheResources[i].title  %>
+                            </td>
+                            <td>
+                                <%= TheResources[i].category  %>
+                            </td>
+                            <td>
+                                <%= TheResources[i].dateAndTimeCreated.toLocaleDateString()  %>
+                            </td>
+                            <td>
+                                <%= TheResources[i].dateAndTimeCreated.toLocaleTimeString()  %>
+                            </td>
+                            <td>
+                                <%= TheResources[i].author  %>
+                            </td>
+                            <td>
+                                <%= TheResources[i].authorEmail  %>
+                            </td>
+                            <td>
+                                <%= TheResources[i].lastModified.toLocaleString()  %>
+                            </td>
+                            <td>
+                                <a href="/experience/readResource/<%= TheResources[i]._id %>" class="btn btn-primary"> Read Resource</a>
+                                <a href="/experience/readResource/<%= TheResources[i]._id %>/edit" class="btn btn-info mt-2"><i class="fas fa-edit"></i>
+                        Edit</a>
+                                <a href="/experience/<%= TheResources[i]._id %>/delete" class="btn btn-danger mt-2" onclick="return confirm('Are you sure to delete this record ?');" name="deleteBtn">
+                                    <i class="fas fa-trash-alt"></i> Delete</a>
+                            </td>
+                        </tr>
+                        <% } %>
+                            <% } %>
+            </tbody>
+        </table>
+        </div>
+
+        <script src="scripts/experience.js"></script>
+
+</body>
+

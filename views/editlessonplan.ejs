@@ -1,0 +1,420 @@
+<link rel="stylesheet" href="css/editlessonplan.css">
+<body onclick="checkeverytime()">
+    <div class="sidenav" hidden>
+        <h1 id="userNameHere" class="ml-4"><%= name %></h1>
+        <h5 style="display: none;" id="authorEmail"><%= email %></h5>
+        <h5 style="display: none;" id="lessonPlanOriginalAuthor"><%= theLessonPlanToDisplay.authorEmail %></h5>
+        <a href="/home" class="ml-2">Modules</a>
+        <a href="/home/<%= moduleOfLessonPlan[0]._id %>" class="ml-2"><%= moduleOfLessonPlan[0].moduleCode %></a>
+        <button type="button" onclick="displaySubmitFormOverlay()" class="btn btn-success ml-4">Save</button>
+        <br/>
+        <br/>
+        <a href="/home/module/<%= theLessonPlanToDisplay._id %>" class="mt-2" style="background-color:goldenrod">Read Lesson Plan</a>
+        <a href="/users/logout" class="btn btn-secondary">Logout</a>
+    </div>
+<br/>
+    <div class="backBtn">
+        <br/>
+        <form action="/home/<%= moduleOfLessonPlan[0]._id %>" method="GET">
+            <button type="submit" class="btn btn-primary">Back</button>
+        </form>
+        <br/>
+        <br/>
+        <button type="button" onclick="displaySubmitFormOverlay()" class="btn btn-success">Save</button>
+        
+
+    </div>
+
+
+
+    <form action="/home/module/<%= theLessonPlanToDisplay._id %>/edit" method="POST">
+        <h1 class="ml-5">Edit Lesson Plan & Cards</h1>
+        <h4 class="ml-5"><%= theLessonPlanToDisplay.theModuleCode %></h4>
+        <h4 class="ml-5"><%= theLessonPlanToDisplay.nameOfLessonPlan %></h4>
+        <h4 class="ml-5">Topic of Lesson: <input name="topicOfLessonTb" id="topicOfLessonTb" placeholder="Enter topic of lesson" class="form-control" style="width: 900px;"></h4>
+        <h5 class="ml-5">
+        <% if(LoginUser.email == theLessonPlanToDisplay.authorEmail){ %>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" style="cursor: pointer;" type="radio" name="inlineRadioOptions" id="UpdateLessonPlan" value="UpdatedLessonPlan">
+                <label class="form-check-label" for="UpdateLessonPlan" style="cursor: pointer;">Update Lesson Plan</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" style="cursor: pointer;" type="radio" name="inlineRadioOptions" id="DuplicateLessonPlan" value="DuplicatedLessonPlan">
+                <label class="form-check-label" for="DuplicateLessonPlan" style="cursor: pointer;">Duplicate Lesson Plan</label>
+              </div>
+              <% } %>
+
+              <% if(LoginUser.email != theLessonPlanToDisplay.authorEmail){ %>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" style="cursor: pointer;" type="radio" name="inlineRadioOptions"
+                        id="UpdateLessonPlan" value="UpdatedLessonPlan" disabled hidden>
+                    <label class="form-check-label" for="UpdateLessonPlan" style="cursor: pointer;">Update Lesson Plan</label hidden>
+                </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" style="cursor: not-allowed;" type="radio" name="inlineRadioOptions" id="DuplicateLessonPlan" value="Lesson Plan Duplicated" checked hidden>
+                    <label class="form-check-label" for="DuplicateLessonPlan" style="cursor: not-allowed;" hidden>Duplicate Lesson Plan</label>
+                  </div>
+                  <% } %>
+                </h5>
+                
+                <!-- ErrorMessage for editlessonplan.ejs Page -->
+                <div id="alertErrors">
+                </div>
+                
+
+        <div style="display: none;">
+            <label>For Duration</label>
+            <% for (var indexForDuration = 0; indexForDuration < theLessonPlanToDisplay.goDuration.length; indexForDuration++) { %>
+            <input class="displayDuration" value="<%= theLessonPlanToDisplay.goDuration[indexForDuration] %>">
+            <% } %>
+
+            <label>For Minutes</label>
+            <% for (var indexForMinutes = 0; indexForMinutes < theLessonPlanToDisplay.goMinutes.length; indexForMinutes++) { %>
+            <input class="displayMinutes" value="<%= theLessonPlanToDisplay.goMinutes[indexForMinutes] %>">
+            <% } %>
+
+            <label>For Time</label>
+            <% for (var indexForTime = 0; indexForTime < theLessonPlanToDisplay.goTime.length; indexForTime++) { %>
+            <input class="displayTime" value="<%= theLessonPlanToDisplay.goTime[indexForTime] %>">
+            <% } %>
+        </div>
+
+
+<br/>
+<br/>
+<br/>
+    <% if(LoginUser.email==theLessonPlanToDisplay.authorEmail){ %>
+        <nav class="nav nav-pills flex-column flex-sm-row">
+            <a class="flex-sm-fill text-sm-center nav-link" href="/home/module/<%= theLessonPlanToDisplay._id %>">Read Lesson Plan</a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/home/module/<%= theLessonPlanToDisplay._id %>/showcards">Read Cards</a>
+            <a class="flex-sm-fill text-sm-center nav-link active" href="/home/module/<%= theLessonPlanToDisplay._id %>/edit">Edit Lesson Plan & Cards</a>
+            <a class="flex-sm-fill text-sm-center nav-link" href="/home/module/<%= theLessonPlanToDisplay._id %>/generatePDF">Lesson Plan & Cards Generation</a>
+        </nav>
+        <% } %>
+        <% if(LoginUser.email !=theLessonPlanToDisplay.authorEmail){ %>
+            <nav class="nav nav-pills flex-column flex-sm-row">
+                <a class="flex-sm-fill text-sm-center nav-link" href="/home/module/<%= theLessonPlanToDisplay._id %>">Read Lesson Plan </a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/home/module/<%= theLessonPlanToDisplay._id %>/showcards">Read Cards </a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/home/module/<%= theLessonPlanToDisplay._id %>/generatePDF">Lesson Plan & Cards Generation </a>
+            </nav>
+        <% } %>
+
+        <div class="backBtn">
+            <br/>
+            <button type="button" class="btn btn-primary" id="pasteBtn">Paste</button>
+
+        </div>
+
+        <br/>
+        <br/>
+        <br/>
+
+          <br/>
+        <h1 style="text-align:center">LXD Notes</h1>
+        <div class="flex-container" id="flexContainerId">
+            <% for(var i = 0; i < theLessonPlanToDisplay.headerForNotesName.length; i++) { %>
+            <div class="parent" style="background-color: <%= theLessonPlanToDisplay.colorPickerForNote[i] %>">
+                <input name="headerForNotesName" placeholder="Title..." class="headersNotes"
+                    value="<%= theLessonPlanToDisplay.headerForNotesName[i] %>">
+                <input title="Use this button to change the color of the note" type="color" name="colorPickerForNote"
+                    value="<%= theLessonPlanToDisplay.colorPickerForNote[i] %>">
+                <button title="Use this button to delete this note" type="button" name="goRemoveNotes" data-toggle="modal" data-target="#exampleModal"
+                class="btn btn-danger mt-2"> Delete</button>
+
+                    <button type="button" class="btn btn-info" name="moveUpBtn"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-info" name="moveDownBtn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+
+                <textarea class="notesTextArea" name="goTextArea"><%= theLessonPlanToDisplay.goTextArea[i] %></textarea>
+                <label style="font-size: large;">Last Modified By:</label>
+                <input readonly class="labelForLastModifiedBy" name="labelForLastModifiedBy" value="<%= theLessonPlanToDisplay.notesLastModifiedBy[i] %>">
+            </div>
+            <% } %>
+        </div>
+        <button type="button" class="btn btn-success" id="addNewNoteBtn">Add New Note</button>
+        <br>
+        <br>
+        <br>
+        <h1 style="text-align:center">LXD Timeline</h1>
+        <!-- Vertical Timeline -->
+        <section id="conference-timeline">
+            <div class="timeline-start">
+                <label>Start Time:</label>
+                <br />
+                <input name="startTimeInput" id="startTimeInput" type="text" value="00:00" readonly />
+            </div>
+            <div class="conference-center-line"></div>
+            <div class="conference-timeline-content" id="containerBox">
+                <% for (var h = 0; h < theLessonPlanToDisplay.headerForEventName.length; ) { %>
+                <div class="timeline-article">
+                    <div class="content-left-container">
+                        <div class="content-left"
+                            style="background-color: <%= theLessonPlanToDisplay.colorPickerForEvent[h] %>">
+                            <input name='headerForEventName' placeholder="Title..." class="headerForEvent"
+                                value="<%= theLessonPlanToDisplay.headerForEventName[h] %>">
+                            <textarea contenteditable="true" style="height: 400px"
+                                name="textAreasForEvents"><%= theLessonPlanToDisplay.textAreasForEvents[h] %></textarea>
+                            <input title="Use this button to change the color of the note" type='color'
+                                name="colorPickerForEvent"
+                                value="<%= theLessonPlanToDisplay.colorPickerForEvent[h] %>" />
+                            <label style="font-size: small;">Last Modified By:</label>
+                            <input readonly class="labelSetForLastModified" name="labelSetForLastModified" value="<%= theLessonPlanToDisplay.eventsLastModifiedBy[h] %>">
+                        </div>
+                        <!-- value="<%= theLessonPlanToDisplay.goDuration[h] %>" -->
+                        <!-- value="<%= theLessonPlanToDisplay.goMinutes[h] %>" -->
+                        <!-- value="<%= theLessonPlanToDisplay.goTime[h] %>" -->
+                        <label>Duration:</label><br />
+                        <input type="number" name="goDuration" style="width: 50px" min="0" max="23"
+                            value=0 />&nbsp<label>hour(s)</label>&nbsp<input type="number" name="goMinutes"
+                            style="width: 50px" min="0" max="59" value=0 />&nbsp<label>minute(s)</label>&nbsp
+                            <button
+                            title="Use this button to delete that specific event (This event cannot be deleted as the timeline needs to have at least 1 event)"
+                            type="button" name="goRemoveEvents" class="btn clever-btn btn-2" data-toggle="modal"
+                            data-target="#exampleModal"><i class="fa fa-trash" style="font-size: 18px; color: black;"></i></button>
+                        <br />
+                        <label hidden>Start Time:</label>
+                        <br />
+                        <input name="goTime" type="time" hidden />
+
+                    </div>
+                    <% h++ %>
+                    <div class="content-right-container">
+                        <div class="content-right"
+                            style="background-color: <%= theLessonPlanToDisplay.colorPickerForEvent[h] %>">
+                            <!-- <h4 contenteditable="true" id="uniqueheaderForEvent2" class="headerForEvent"
+                                    data-placeholder="Title..."></h4> -->
+                            <input name='headerForEventName' placeholder="Title..." class="headerForEvent"
+                                value="<%= theLessonPlanToDisplay.headerForEventName[h] %>">
+                            <textarea style="height: 400px"
+                                name="textAreasForEvents"><%= theLessonPlanToDisplay.textAreasForEvents[h] %></textarea>
+
+                            <input title="Use this button to change the color of the note" type='color'
+                                name="colorPickerForEvent"
+                                value="<%= theLessonPlanToDisplay.colorPickerForEvent[h] %>" />
+                            <label style="font-size: small;">Last Modified By:</label>
+                            <input readonly class="labelSetForLastModified" name="labelSetForLastModified" value="<%= theLessonPlanToDisplay.eventsLastModifiedBy[h] %>">
+                        </div>
+                    </div>
+                    <% h++ %>
+                    <div class="meta-date">
+                        <span class="date">00:00</span>
+                        <input name="middleTimeHidden" value="00:00" hidden/>
+                    </div>
+
+                    <button type="button" class="btn btn-info" name="moveUpBtnTL" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px; margin-top: 150px;"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-info" name="moveDownBtnTL" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px;"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+
+                    
+                    <input title="Use this button to add an event" type="button" value="+" class="btn clever-btn btn-2"
+                        name="goButton"
+                        style="display: block; margin:auto; max-width: 300px; margin-top: 110px; background: #00b0bd; color: rgba(0, 0, 0, 0.50); font-size: xx-large;" />
+
+                </div>
+                <% } %>
+            </div>
+            <div class="timeline-end">Total Duration
+                <input class="endTime" type="text" readonly style="cursor: not-allowed;"  />
+            </div>
+        </section>
+
+        <!-- For Overlays -->
+        <div id="overlayForNotes">
+            <div class="text">Loading......</div>
+            <div class="loader"></div>
+        </div>
+
+        <div id="overlay">
+            <div class="text">Loading......</div>
+            <div class="loader"></div>
+        </div>
+
+        <!-- For Overlay For Form Submission -->
+        <div id="overlayForFormSubmission">
+            <div class="text">
+                <div class="form-group">
+                    <label for="nameOfLessonPlan">Name of Lesson Plan</label>
+                    <input required type="text" id="nameOfLessonPlan" name="nameOfLessonPlan" class="form-control" placeholder="Enter name of lesson plan" value="<%= typeof nameOfLessonPlan != 'undefined' ? nameOfLessonPlan : '' %>">
+                </div>
+                <div class="form-group">
+                    <label for="commitMsg">Commit Message</label>
+                    <input required type="text" id="commitMsg" name="commitMsg" class="form-control" placeholder="Enter commit messages" value="<%= typeof commitMsg != 'undefined' ? commitMsg : '' %>">
+                </div>
+            </div>
+            <button type="submit" id="submitFormSuccess" class="btn btn-default" onclick="submitForm()">Save</button>
+            <button type="button" id="submitFormFail" class="btn btn-default" onclick="makeSubmitFormOverlayGone()">Cancel</button>
+            <!-- <input type="button" id="submitFormFail" class="btn btn-default" onclick="makeSubmitFormOverlayGone()" value="Cancel"> -->
+        </div>
+        <h4>Post-lesson survey:</h4>
+        <div id="LinkDiv">
+            <table class="table table-striped table-responsive" name="tableForLinks" id="tableForLinks">
+                <thead>
+                  <tr>
+                    <th scope="col">Links</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% if(theLessonPlanToDisplay.postLessonSurveyLink != null){ %>
+                        <% for (var indexForlink = 0; indexForlink < theLessonPlanToDisplay.postLessonSurveyLink.length; indexForlink++) { %>
+                            <tr>
+                        <td><a href="<%= theLessonPlanToDisplay.postLessonSurveyLink[indexForlink] %>" target="_blank" name="postLessonSurveyLink" value="<%= theLessonPlanToDisplay.postLessonSurveyLink[indexForlink] %>"><%= theLessonPlanToDisplay.postLessonSurveyLink[indexForlink] %></a>
+                            <input name="postLessonSurveyLinkTbb" type="url" class="form-control col mr-2" value="<%= theLessonPlanToDisplay.postLessonSurveyLink[indexForlink] %>" hidden>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger mt-2" name="deleteLinkBtn" type="button" data-toggle="modal" data-target="#exampleModal"> Delete</button>
+                        </td>
+                        </tr>
+                        <% } %>
+                    <% } %>
+                </tbody>
+              </table>
+              <!-- ErrorMessage for Post-lesson Survey link -->
+                <div id="alertErrorsForLink">
+                </div>
+              <form class="my-4 form-inline">
+                <input name="postLessonSurveyLinkTb" id="postLessonSurveyLinkTb" type="url" placeholder="Enter the link" class="form-control col mr-2">
+                <br/>
+                <button class="btn btn-success" style="float: right;" name="addLinkBtn" type="button">Add Link</button>
+            </form>
+            <br/>
+        <br/>
+        <h2>Comments:</h2>
+            <div class="comment-container" id="commentcontainerID">
+            <textarea readonly class="commentsInput" name="previousComment" id="previousComment" hidden></textarea>
+
+            <div class="commentsDivLeft" id="commentsDivLeft" style="border: <%= theLessonPlanToDisplay.allCommentsBorderColor[0] %>; border-style: solid; border-width: 5px;">
+                <label class="commentsLabel">Author's</label>
+                <input class="commentsEditedBy" name="CommentBorderColor" value="<%= theLessonPlanToDisplay.allCommentsBorderColor[0] %>" hidden>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" name="editCommentBtn" class="btn btn-primary" style="cursor: not-allowed;" hidden>Edit</button>
+                <button type="button" name="cancelCommentBtn" class="btn btn-secondary" hidden>Cancel</button>
+                <button type="submit" name="CommentCommentBtn" class="btn btn-success" hidden>Comment</button>
+
+                <textarea class="commentsInput" name="commentsTA"><%= theLessonPlanToDisplay.allCommentsInputs[0] %></textarea>
+                <textarea class="commentsInput" name="commentsTAHidden" hidden><%= theLessonPlanToDisplay.allCommentsInputs[0] %></textarea>
+                <label style="font-size: x-large; ">Edited by: </label>
+                <input readonly class="commentsEditedBy" name="CommentsEditedBy" value="<%= theLessonPlanToDisplay.allCommentsEditedby[0] %>">
+                <input readonly name="commentsEditedByEmail" value="<%= theLessonPlanToDisplay.allCommentsEditedbyEmails[0] %>" hidden>
+            </div>
+
+        <%if(!theLessonPlanToDisplay.enableComments[0]) { %>
+            <div class="commentsUnavailable" id="CommentIsUnavailable" style="border: transparent; border-style: solid; border-width: 5px;">
+                <br/>
+                <br/>
+                <label style="font-weight: bold;" id="CommentingIsUnavailableLbl">Commenting is unavailable</label>
+            </div>
+        <% } %>
+        <div class="commentsUnavailable" id="CommentIsUnavailable" hidden style="border: transparent; border-style: solid; border-width: 5px;">
+            <br/>
+            <br/>
+            <label style="font-weight: bold;" id="CommentingIsUnavailableLbl">Commenting is unavailable</label>
+        </div>
+
+        <% for (var indexComments = 1; indexComments < theLessonPlanToDisplay.allCommentsInputs.length; indexComments++) { %>
+            <% if(email == theLessonPlanToDisplay.allCommentsEditedbyEmails[indexComments]){ %>
+                <div class="commentsDivRight" name="commentsDivRight" style="border: <%= theLessonPlanToDisplay.allCommentsBorderColor[indexComments] %>; border-style: solid; border-width: 5px;">
+                    <% if(theLessonPlanToDisplay.allCommentsBorderColor[indexComments] == 'red'){ %>
+                    <label class="commentsLabel">Other's</label>
+                    <% } else{ %>
+                        <label class="commentsLabel">Author's</label>
+                    <% } %>
+                    <input class="commentsEditedBy" name="CommentBorderColor" value="<%= theLessonPlanToDisplay.allCommentsBorderColor[indexComments] %>" hidden>
+                    &nbsp;&nbsp;
+                    <button type="button" name="editCommentBtn" class="btn btn-primary" style="cursor: pointer;">Edit</button>
+                    <button type="button" name="cancelCommentBtn" class="btn btn-secondary" hidden>Cancel</button>
+                    &nbsp;
+                    <button type="submit" name="CommentCommentBtn" class="btn btn-success" hidden>Comment</button>
+
+                    <textarea class="commentsInput" name="commentsTA" disabled><%= theLessonPlanToDisplay.allCommentsInputs[indexComments] %></textarea>
+                    <textarea class="commentsInput" name="commentsTAHidden" hidden><%= theLessonPlanToDisplay.allCommentsInputs[indexComments] %></textarea>
+                    <label style="font-size: x-large; ">Edited by: </label>
+                    <input readonly class="commentsEditedBy" name="CommentsEditedBy" value="<%= theLessonPlanToDisplay.allCommentsEditedby[indexComments] %>">
+                    <input readonly name="commentsEditedByEmail" value="<%= theLessonPlanToDisplay.allCommentsEditedbyEmails[indexComments] %>" hidden>
+                    <!-- <form action="/home/module/<%= theLessonPlanToDisplay._id %>/comment" method="POST"> -->
+
+                    <button type="button" name="commentDeleteBtn" class="btn btn-danger" modaldata-toggle="modal" data-target="#exampleModal">Delete</button>
+                    <!-- </form> -->
+                </div>
+            <% } else{ %>
+                <div class="commentsDivRight" name="commentsDivRight" style="border: <%= theLessonPlanToDisplay.allCommentsBorderColor[indexComments] %>; border-style: solid; border-width: 5px;">
+                    <% if(theLessonPlanToDisplay.allCommentsBorderColor[indexComments] == 'red'){ %>
+                        <label class="commentsLabel">Other's</label>
+                        <% } else{ %>
+                            <label class="commentsLabel">Author's</label>
+                        <% } %>
+                    <input class="commentsEditedBy" name="CommentBorderColor" value="<%= theLessonPlanToDisplay.allCommentsBorderColor[indexComments] %>" hidden>
+                    &nbsp;&nbsp;
+                    <button type="button" name="editCommentBtn" class="btn btn-primary" style="cursor: not-allowed;" disabled>Edit</button>
+                    <button type="button" name="cancelCommentBtn" class="btn btn-secondary" hidden>Cancel</button>
+                    &nbsp;
+                    <button type="submit" name="CommentCommentBtn" class="btn btn-success" hidden>Comment</button>
+
+                    <textarea class="commentsInput" name="commentsTA" disabled><%= theLessonPlanToDisplay.allCommentsInputs[indexComments] %></textarea>
+                    <textarea class="commentsInput" name="commentsTAHidden" hidden><%= theLessonPlanToDisplay.allCommentsInputs[indexComments] %></textarea>
+                    <label style="font-size: x-large; ">Edited by: </label>
+                    <input readonly class="commentsEditedBy" name="CommentsEditedBy" value="<%= theLessonPlanToDisplay.allCommentsEditedby[indexComments] %>">
+                    <input readonly name="commentsEditedByEmail" value="<%= theLessonPlanToDisplay.allCommentsEditedbyEmails[indexComments] %>" hidden>
+                    <% if(email == theLessonPlanToDisplay.authorEmail){ %>
+                        <!-- <form action="/home/module/<%= theLessonPlanToDisplay._id %>/comment" method="POST"> -->
+
+                    <button type="button" name="commentDeleteBtn" class="btn btn-danger" modaldata-toggle="modal" data-target="#exampleModal">Delete</button>
+                    <!-- </form>S -->
+                    <% } else{ %>
+                        <button type="button" name="commentDeleteBtn" style="cursor: not-allowed;" class="btn btn-danger" modaldata-toggle="modal" data-target="#exampleModal" disabled>Delete</button>
+                    <% } %>
+
+                </div>
+
+            <% } %>
+
+        <% } %>
+
+            </div>
+            
+            <!-- Add comment button and checkbox for enable comment or not -->
+            <!-- <button type="button" class="btn btn-default" style="font-size: xxx-large; margin-left: 30px; cursor: not-allowed;" name="addCommentBtn" id="addCommentBtn" disabled>
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </button> -->
+            <h4>
+            <!-- if enableComments is true, checkbox is checked, else not checked and commenting is unavailable -->
+            <%if(theLessonPlanToDisplay.enableComments[0]) { %>
+            <div class="form-check" style="margin-left: 30px;">
+                <input type="checkbox" class="form-check-input" id="EnableCommentCB" name="EnableCommentCB" value="true" checked>
+                <label class="form-check-label" for="EnableCommentCB">Enable others to comment?</label>
+            </div>
+            <% } else{ %>
+                <div class="form-check" style="margin-left: 30px;">
+                    <input type="checkbox" class="form-check-input" id="EnableCommentCB" name="EnableCommentCB" value="true">
+                    <label class="form-check-label" for="EnableCommentCB">Enable others to comment?</label>
+                </div>
+                <% } %>
+            </h4>
+        </div>
+        
+    </form>
+<!-- Modal -->
+<div id="ModalPopUpForDeletion">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="modal-bodyID">
+              <!-- delete msg here -->
+          </div>
+          <div class="modal-footer" id="modalfooter" name="modalfooter">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" name="ConfirmDeleteBtnInModal" id="ConfirmDeleteBtnInModal" class="btn btn-danger mt-2"> Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script src="scripts/editlessonplan.js"></script>
+
+</body>
