@@ -295,7 +295,7 @@ h4:empty:not(:focus)::before {
 } */
 
 .timeline-article .meta-date {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 48.25%;
     width: 95px;
@@ -541,15 +541,34 @@ input[class="endTime"] {
     .timeline-article p span.article-number {
         display: none;
     }
-    #rightBtnid {
+    #frontBtnid #backBtnid{
         visibility: visible;
         cursor: pointer;
     }
-    .content-left {
-        transition: transform 2s;
+    .timeline-article {
+        -o-transition: all 1s ease-in-out;
+        -webkit-transition: all 1s ease-in-out;
+        -ms-transition: all 1s ease-in-out;
+        transition: all 1s ease-in-out;
+        -o-transform-style: preserve-3d;
+        -webkit-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
         transform-style: preserve-3d;
     }
 
+    .timeline-article .do-flip {
+        -o-transform: rotateY(-180deg);
+        -webkit-transform: rotateY(-180deg);
+        -ms-transform: rotateY(-180deg);
+        transform: rotateY(-180deg);
+    }
+
+    .content-right {
+        -o-transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+        -ms-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
 }
 /*===== // Resonsive Vertical Timeline =====*/
 
