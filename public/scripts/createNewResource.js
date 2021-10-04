@@ -755,6 +755,13 @@ $('#flexContainerId').on('click', 'button[name$="moveDownBtn"]', function() {
 
 });
 
+// //Flip card in mobile view
+// window.addEventListener('resize', flipCard);
+
+// function flipCard(){
+//     document.getElementById('rightBtnid').hidden = true;
+// }
+
 
 //Add new event
 var noOfTextAreaEvent = $('textarea[name$="textAreasForEvents"]').length;

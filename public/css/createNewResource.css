@@ -471,7 +471,7 @@ h4:empty:not(:focus)::before {
 /*===== // Vertical Timeline =====*/
 /*===== Resonsive Vertical Timeline =====*/
 
-@media only screen and (max-width: 830px) {
+@media screen and (max-width: 830px) {
     #conference-timeline .timeline-start,
     #conference-timeline .timeline-end {
         margin: 0;
@@ -541,6 +541,15 @@ input[class="endTime"] {
     .timeline-article p span.article-number {
         display: none;
     }
+    #rightBtnid {
+        visibility: visible;
+        cursor: pointer;
+    }
+    .content-left {
+        transition: transform 2s;
+        transform-style: preserve-3d;
+    }
+
 }
 /*===== // Resonsive Vertical Timeline =====*/
 

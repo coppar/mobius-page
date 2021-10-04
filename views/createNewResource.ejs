@@ -103,6 +103,8 @@
                             <input title="Use this button to change the color of the note" type='color' name="colorPickerForEvent" value="#8080ff" />
                             <label style="font-size: small;">Last Modified By:</label>
                             <input readonly class="labelSetForLastModified" name="labelSetForLastModified" value="">
+                            <button type="button" class="btn btn-info" id="rightBtnid" name="rightBtnTL" style="display: block;margin-left:88%;visibility: hidden;"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+
                         </div>
 
                         <label>Duration:</label><br />
@@ -126,6 +128,7 @@
                             <input readonly class="labelSetForLastModified" name="labelSetForLastModified" value="">
                         </div>
                     </div>
+
                     <div class="meta-date">
                         <span class="date">00:00</span>
                         <input name="middleTimeHidden" value="00:00" hidden />
@@ -135,7 +138,7 @@
                             class="fa fa-arrow-up" aria-hidden="true"></i></button>
                     <button type="button" class="btn btn-info" name="moveDownBtnTL" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px;"><i
                             class="fa fa-arrow-down" aria-hidden="true"></i></button>
-
+                    
 
                     <input title="Use this button to add an event" type="button" value="+" class="btn clever-btn btn-2" name="goButton" style="display: block; margin:auto; max-width: 300px; margin-top: 110px; background: #00b0bd; color: rgba(0, 0, 0, 0.50); font-size: xx-large;"
                     />
