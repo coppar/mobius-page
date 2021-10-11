@@ -1314,27 +1314,30 @@ $('#pasteBtn').click(function() {
     }
 
     // media screen changes
-    var screensize = window.matchMedia("(max-width: 400px)");
-    if (screensize.matches) {
-        const timelinewrapall = document.querySelector(".timeline-article")
-        const timelineflip = document.querySelector(".timeline-3D-wrapper")
-        const timelinecontent = document.querySelectorAll(".content-left .content-right")
-        let frontButton = ""
-        let backButton = ""
-
-        for (let i=0; i < timelineflip.length; i++){
-            frontButton = timelineflip[i].querySelector("#frontBtnid")
-            frontButton.style.visibility = "visible"
-            frontButton.onclick = function(){
-                timelinecontent[i].classList.toggle('do-flip')
-            }
-            backButton = timelineflip[i].querySelector("#backBtnid")
-            backButton.style.visibility = "visible"
-            backButton.onclick = function(){
-            timelinecontent[i].classList.toggle('do-flip')
-        }
-        
-        }
+    function flip(){
+        $('.content-left .content-right').toggleClass('do-flip');
     }
+    // var screensize = window.matchMedia("(max-width: 400px)");
+    // if (screensize.matches) {
+        // const timelinewrapall = document.querySelector(".timeline-article")
+        // const timelineflip = document.querySelector(".timeline-3D-wrapper")
+        // const timelinecontent = document.querySelectorAll(".content-left .content-right")
+        // let frontButton = ""
+        // let backButton = ""
+
+        // for (let i=0; i < timelineflip.length; i++){
+        //     frontButton = timelineflip[i].querySelector("#frontBtnid")
+        //     frontButton.style.visibility = "visible"
+        //     frontButton.onclick = function(){
+        //         timelinecontent[i].classList.toggle('do-flip')
+        //     }
+        //     backButton = timelineflip[i].querySelector("#backBtnid")
+        //     backButton.style.visibility = "visible"
+        //     backButton.onclick = function(){
+        //     timelinecontent[i].classList.toggle('do-flip')
+        // }
+        
+        // // }
+    // }
 
 });

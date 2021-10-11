@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobius Application</title>
     <!-- <script src="stylesheet\tinymce\tinymce.min.js"></script> -->
     <script src="https://cdn.tiny.cloud/1/v73hdb8haytf20znc24j0223o64viyhlcpitocjqagu2p3o0/tinymce/5/tinymce.min.js"
         referrerpolicy="origin"></script>
@@ -346,7 +345,7 @@
         <h4>Category of Resource: &nbsp;<%= TheSelectedResource.category %></h4>
 <br/>
 <br/>
-<% if(LoginUser.email==theLessonPlanToDisplay.authorEmail){ %>
+<% if(LoginUser.email==TheSelectedResource.authorEmail){ %>
         <nav class="nav nav-pills flex-column flex-sm-row">
             <a class="flex-sm-fill text-sm-center nav-link" href="/experience/readResource/<%= TheSelectedResource._id %>">Read LXD Timeline</a>
             <a class="flex-sm-fill text-sm-center nav-link" href="/experience/readResource/<%= TheSelectedResource._id %>/readResourceCards">Read LXD Notes</a>
@@ -354,7 +353,7 @@
             <a class="flex-sm-fill text-sm-center nav-link active" href="/experience/readResource/<%= TheSelectedResource._id %>/generateResourcePDF">LXD Timeline & LXD Notes Generation</a>
         </nav>
         <% } %>
-        <% if(LoginUser.email !=theLessonPlanToDisplay.authorEmail){ %>
+        <% if(LoginUser.email !=TheSelectedResource.authorEmail){ %>
         <nav class="nav nav-pills flex-column flex-sm-row">
             <a class="flex-sm-fill text-sm-center nav-link" href="/experience/readResource/<%= TheSelectedResource._id %>">Read
                 LXD Timeline</a>

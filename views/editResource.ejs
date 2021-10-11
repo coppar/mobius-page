@@ -1,5 +1,4 @@
-<link rel="stylesheet" href="css/editResource.css">
-<script src="scripts/editResource.js"></script>
+<link rel="stylesheet" href="/css/editResource.css">
 
 <body onclick="checkeverytime()">
     <div class="sidenav" hidden>
@@ -86,20 +85,20 @@
 <br/>
 <br/>
 
-<% if(LoginUser.email==theLessonPlanToDisplay.authorEmail){ %>
+<% if(LoginUser.email==TheSelectedResource.authorEmail){ %>
     <nav class="nav nav-pills flex-column flex-sm-row">
         <a class="flex-sm-fill text-sm-center nav-link "
             href="/experience/readResource/<%= TheSelectedResource._id %>">Read LXD Timeline</a>
-        <a class="flex-sm-fill text-sm-center nav-link active"
-            href="/experience/readResource/<%= TheSelectedResource._id %>/readResourceCards">Read LXD Notes</a>
         <a class="flex-sm-fill text-sm-center nav-link"
+            href="/experience/readResource/<%= TheSelectedResource._id %>/readResourceCards">Read LXD Notes</a>
+        <a class="flex-sm-fill text-sm-center nav-link active"
             href="/experience/readResource/<%= TheSelectedResource._id %>/edit">Edit LXD Timeline & LXD Notes</a>
         <a class="flex-sm-fill text-sm-center nav-link"
             href="/experience/readResource/<%= TheSelectedResource._id %>/generateResourcePDF">LXD Timeline & LXD Notes
             Generation</a>
     </nav>
     <% } %>
-        <% if(LoginUser.email !=theLessonPlanToDisplay.authorEmail){ %>
+        <% if(LoginUser.email !=TheSelectedResource.authorEmail){ %>
             <nav class="nav nav-pills flex-column flex-sm-row">
                 <a class="flex-sm-fill text-sm-center nav-link"
                     href="/experience/readResource/<%= TheSelectedResource._id %>">Read
@@ -135,8 +134,8 @@
                 <input title="Use this button to change the color of the note" type="color" name="colorPickerForNote"
                     value="<%= TheSelectedResource.colorPickerForNote[i] %>">
                 <button title="Use this button to delete this note" type="button" name="goRemoveNotes" data-toggle="modal" data-target="#exampleModal"
-                class="btn btn-danger mt-2"> Delete</button>
-
+                class="btn btn-danger mt-2"><i class="fas fa-times"></i></button>
+                <br>
                     <button type="button" class="btn btn-info" name="moveUpBtn"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
                     <button type="button" class="btn btn-info" name="moveDownBtn"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
 
@@ -282,3 +281,7 @@
   </div>
 
 </body>
+<script src="https://cdn.tiny.cloud/1/v73hdb8haytf20znc24j0223o64viyhlcpitocjqagu2p3o0/tinymce/5/tinymce.min.js"
+referrerpolicy="origin"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+<script src="/scripts/editResource.js"></script>

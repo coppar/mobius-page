@@ -15,18 +15,14 @@
         <a class="flex-sm-fill text-sm-center nav-link" href="/home">Lesson Plans</a>
     </nav>
     <br/>
+    <h3 class="searchbytable">Search by:</h3>
+    <br/><br/><br/>
     <table>
-        <thead>
-            <tr>
-                <th class="searchbytable">Search by:</th>
-            </tr>
-        </thead>
         <tbody>
             <tr>
                 <td class="searchbytable">Title: </td>
                 <td>&nbsp;<input value="" placeholder="Enter Title" class="searchinputtable" onkeyup="searchFunction()" id="titleSearchInput"></td>
                 <form action="/experience/createNewResource" method="GET">
-                    <td rowspan="3"><button class="btn btn-primary createNewButton">Create New Resource</button></td>
                 </form>
             </tr>
             <tr>
@@ -39,6 +35,8 @@
             </tr>
         </tbody>
     </table>
+    <br/>
+    <button class="btn btn-primary createNewButton">Create New Resource</button>
     <br/>
     <br/>
     <br/>

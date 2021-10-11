@@ -438,7 +438,7 @@ router.get('/home/module/:_id/delete', ensureAuthenticated, async(req, res) => {
 
 //Create New module page
 router.get('/home/new-module', ensureAuthenticated, (req, res) => {
-    res.render('newModule', { subject: new Subject() });
+    res.render('newModule', { subject: new Subject(), title: 'Mobius Page' });
 });
 
 //Saving new module created
@@ -451,7 +451,7 @@ router.post('/home/new-module', (req, res) => {
     }
 
     if (errors.length > 0) {
-        res.render('newModule', { errors, moduleCode, moduleName });
+        res.render('newModule', { errors, moduleCode, moduleName, title: 'Mobius Page' });
     } else {
         Subject.findOne({ moduleCode: moduleCode })
             .then(newModule => {
@@ -462,7 +462,8 @@ router.post('/home/new-module', (req, res) => {
                         errors,
                         moduleCode,
                         moduleName,
-                        moduleSchool
+                        moduleSchool,
+                        title: 'Mobius Page',
                     });
                 } else {
                     let strModuleSchool = String(moduleSchool);
@@ -556,14 +557,14 @@ router.get('/home/:_id', ensureAuthenticated, async(req, res) => {
             // const regex = new RegExp(escapeRegex(req.query.search), 'gi');
             // const lessonPlansInThatModule = await LessonPlan.find({$or:[{theModuleCode: thatSpecificModule.moduleCode},{nameOfLessonPlan: regex}]});
             // to do: Check on author for lesson plans and hide delete button
-        res.render('showModule', { LoginUser: req.user, name: req.user.name, thatModule: thatSpecificModule, thatLessonPlan: lessonPlansInThatModule, LoginUserEmail: req.user.email });
+        res.render('showModule', { LoginUser: req.user, name: req.user.name, thatModule: thatSpecificModule, thatLessonPlan: lessonPlansInThatModule, LoginUserEmail: req.user.email, title: 'Mobius Application' });
     } else {
         // res.send(req.params._id);
         var idToFind = req.params._id;
         const thatSpecificModule = await Subject.findById(idToFind);
         // console.log(thatSpecificModule);
         const lessonPlansInThatModule = await LessonPlan.find({ "theModuleCode": thatSpecificModule.moduleCode });
-        res.render('showModule', { LoginUser: req.user, name: req.user.name, thatModule: thatSpecificModule, thatLessonPlan: lessonPlansInThatModule, LoginUserEmail: req.user.email });
+        res.render('showModule', { LoginUser: req.user, name: req.user.name, thatModule: thatSpecificModule, thatLessonPlan: lessonPlansInThatModule, LoginUserEmail: req.user.email, title: 'Mobius Application' });
     }
 });
 
@@ -1166,14 +1167,14 @@ router.get('/experience/:_id/delete', ensureAuthenticated, (req, res) => {
 router.get('/experience/readResource/:_id', ensureAuthenticated, async(req, res) => {
     const thatSpecificResource = await Resource.findById(req.params._id);
     console.log(thatSpecificResource);
-    res.render('readResource', { LoginUser: req.user, name: req.user.name, email: req.user.email, TheSelectedResource: thatSpecificResource });
+    res.render('readResource', { LoginUser: req.user, name: req.user.name, email: req.user.email, TheSelectedResource: thatSpecificResource, title: 'Mobius Application' });
 });
 
 //Read resource LXD Cards
 router.get('/experience/readResource/:_id/readResourceCards', ensureAuthenticated, async(req, res) => {
     const thatSpecificResource = await Resource.findById(req.params._id);
 
-    res.render('readResourceCards', { LoginUser: req.user, name: req.user.name, email: req.user.email, TheSelectedResource: thatSpecificResource });
+    res.render('readResourceCards', { LoginUser: req.user, name: req.user.name, email: req.user.email, TheSelectedResource: thatSpecificResource, title: 'Mobius Application' });
 });
 
 //Edit resource LXD Cards & LXD Timeline page
@@ -1264,7 +1265,7 @@ router.post('/experience/readResource/:_id/edit', ensureAuthenticated, async(req
 router.get('/experience/readResource/:_id/generateResourcePDF', ensureAuthenticated, async(req, res) => {
     const thatSpecificResource = await Resource.findById(req.params._id);
 
-    res.render('generateResourcePDF', { LoginUser: req.user, name: req.user.name, email: req.user.email, TheSelectedResource: thatSpecificResource });
+    res.render('generateResourcePDF', { LoginUser: req.user, name: req.user.name, email: req.user.email, TheSelectedResource: thatSpecificResource, title: 'Mobius Application' });
 });
 
 //At resource's PDF generation page

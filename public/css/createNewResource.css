@@ -138,7 +138,7 @@
 input[class="headersNotes"] {
     position: relative;
     border: none;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.10);
 }
 
 input[class="labelForLastModifiedBy"] {
@@ -545,25 +545,26 @@ input[class="endTime"] {
         visibility: visible;
         cursor: pointer;
     }
-    .timeline-article {
-        -o-transition: all 1s ease-in-out;
-        -webkit-transition: all 1s ease-in-out;
-        -ms-transition: all 1s ease-in-out;
-        transition: all 1s ease-in-out;
+    .content-left-container .content-right-container {
         -o-transform-style: preserve-3d;
         -webkit-transform-style: preserve-3d;
         -ms-transform-style: preserve-3d;
         transform-style: preserve-3d;
+        position: absolute;
+        -o-backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+        backface-visibility: hidden;
     }
 
-    .timeline-article .do-flip {
+    .do-flip {
         -o-transform: rotateY(-180deg);
         -webkit-transform: rotateY(-180deg);
         -ms-transform: rotateY(-180deg);
         transform: rotateY(-180deg);
     }
 
-    .content-right {
+    .content-right-container {
         -o-transform: rotateY(180deg);
         -webkit-transform: rotateY(180deg);
         -ms-transform: rotateY(180deg);

@@ -33,7 +33,7 @@
         <h4 class="ml-5"><%= theLessonPlanToDisplay.nameOfLessonPlan %></h4>
         <h4 class="ml-5">Topic of Lesson: <input name="topicOfLessonTb" id="topicOfLessonTb" placeholder="Enter topic of lesson" class="form-control" style="width: 900px;"></h4>
         <h5 class="ml-5">
-        <% if(LoginUser.email == theLessonPlanToDisplay.authorEmail){ %>
+        <% if(LoginUser.email == TheSelectedResource.authorEmail){ %>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" style="cursor: pointer;" type="radio" name="inlineRadioOptions" id="UpdateLessonPlan" value="UpdatedLessonPlan">
                 <label class="form-check-label" for="UpdateLessonPlan" style="cursor: pointer;">Update Lesson Plan</label>
@@ -44,7 +44,7 @@
               </div>
               <% } %>
 
-              <% if(LoginUser.email != theLessonPlanToDisplay.authorEmail){ %>
+              <% if(LoginUser.email != TheSelectedResource.authorEmail){ %>
 
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" style="cursor: pointer;" type="radio" name="inlineRadioOptions"
