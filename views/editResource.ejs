@@ -27,8 +27,8 @@
     <form action="/experience/readResource/<%= TheSelectedResource._id %>/edit" method="POST">
         <h1>Resource - Edit LXD Timeline & LXD Notes</h1>
         <br/>
-        <h4>Title of resource: <input name="titleOfResourceTb" id="titleOfResourceTb" placeholder="Enter title of resource" class="form-control" style="width: 900px;"></h4>
-        <h4>Category of resource: <input name="categoryOfResourceTb" id="categoryOfResourceTb" placeholder="Enter category of resource" class="form-control" style="width: 900px;"></h4>
+        <h4>Title of resource: <input name="titleOfResourceTb" id="titleOfResourceTb" placeholder="Enter title of resource" class="form-control" style="width: 900px;" value=<%= TheSelectedResource.title %>></h4>
+        <h4>Category of resource: <input name="categoryOfResourceTb" id="categoryOfResourceTb" placeholder="Enter category of resource" class="form-control" style="width: 900px;" value=<%= TheSelectedResource.category %>></h4>
         <h5>
         <% if(email == TheSelectedResource.authorEmail){ %>
             <div class="form-check form-check-inline">

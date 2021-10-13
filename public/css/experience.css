@@ -22,9 +22,3 @@ div {
     margin-left: 50px;
     font-size: larger;
 }
-
-@media screen and (max-width: 500px){
-    .createNewButton{
-        margin-left: 5px;
-    }
-}
